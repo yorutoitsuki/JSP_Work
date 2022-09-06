@@ -39,10 +39,10 @@ loprice number(30) not null,
 hiprice number(30) not null
 );
 
-insert into grade values(1, 150001, 500000);
-insert into grade values(2, 100001, 150000);
-insert into grade values(3, 50001, 100000);
-insert into grade values(4, 1, 50000);
+insert into grade values(1, 150001, 500000); --vip
+insert into grade values(2, 100001, 150000); --gold
+insert into grade values(3, 50001, 100000); --silver
+insert into grade values(4, 1, 50000); --normal
 
 create table buy(
 memno char(4) not null,
