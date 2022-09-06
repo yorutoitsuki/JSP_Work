@@ -39,4 +39,6 @@
 	
 	//4. 결과셋 선언 : select(조회) 결과로 ResultSet 리턴 받음
 	ResultSet rs = null;
+	
+	String sql = "";
 %>

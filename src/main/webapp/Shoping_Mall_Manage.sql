@@ -1,4 +1,9 @@
+select to_char(sysdate,'yyyy-mm-dd') from dual;--가입일
+select NVL(max(memno),0)+1 from member --회원번호
+--My SQL : now()
 
+select NVL(max(memno),0)+1 as memno, to_char(sysdate,'yyyymmdd') as hirdate from member;
+select to_char(sysdate,'yyyy-mm-dd') as hirdate from member; -- 레코드 수가 9개
 
 drop table member;
 
