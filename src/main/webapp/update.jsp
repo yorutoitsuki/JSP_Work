@@ -104,12 +104,12 @@
 				</tr>
 				<tr>
 					<th>회원이름</th>
-					<td><input type="text" name="name" value="" size="15"
+					<td><input type="text" name="name" value="<%=name%>" size="15"
 						maxlength="30"></td>
 				</tr>
 				<tr>
 					<th>주소</th>
-					<td><input type="text" name="address" value="" size="40"
+					<td><input type="text" name="address" value="<%=address%>" size="40"
 						maxlength="100"></td>
 				</tr>
 				<tr>
@@ -123,16 +123,16 @@
 				<tr>
 					<th>성별</th>
 					<td>
-						<label><input type="radio" name="gender" value="M"size="10" maxlength="">남자</label>
-						<label><input type="radio" name="gender" value="F" size="10" maxlength="">여자</label>
+						<label><input type="radio" name="gender" value="M">남자</label>
+						<label><input type="radio" name="gender" value="F">여자</label>
 					</td>
 				</tr>
 				<tr>
 					<th>전화번호</th>
 					<td>
-						<input type="text" name="tel1" value="" size="10" maxlength="">- 
-						<input type="text" name="tel2" value="" size="10" maxlength="">- 
-						<input type="text" name="tel3" value="" size="10" maxlength="">
+						<input type="text" name="tel1" value="<%=tel1%>" size="10" maxlength="">- 
+						<input type="text" name="tel2" value="<%=tel2%>" size="10" maxlength="">- 
+						<input type="text" name="tel3" value="<%=tel3%>" size="10" maxlength="">
 					</td>
 				</tr>
 				<tr>
