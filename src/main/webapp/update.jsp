@@ -65,7 +65,9 @@
 	String memno = request.getParameter("memno");
 	sql = "select memno, name, address, ";
 	sql += "to_char(hiredate,'yyyy-mm-dd') as hiredate, ";
-	sql += "gender, tel1, tel2, tel3 ";
+	sql += "gender, ";
+	sql += " tel1 , tel2 , tel3 ";
+	/*NVL(tel1,'') null로 출력됨*/
 	sql += "from MEMBER ";
 	sql += "where memno = '" + memno + "'";
 	
@@ -77,14 +79,25 @@
 	String tel1 = "";
 	String tel2 = "";
 	String tel3 = "";
+	
 	if(rs.next()) {
 		name = rs.getString("name");
 		address = rs.getString("address");
 		gender = rs.getString("gender");
 		hiredate = rs.getString("hiredate");
 		tel1 = rs.getString("tel1");
+		//JAVA로 Null 처리
+		if(tel1 == null){
+			tel1 = "";
+		}
 		tel2 = rs.getString("tel2");
+		if(tel2 == null){
+			tel2 = "";
+		}
 		tel3 = rs.getString("tel3");
+		if(tel3 == null){
+			tel3 = "";
+		}
 	}
 	%>
 	
@@ -123,8 +136,18 @@
 				<tr>
 					<th>성별</th>
 					<td>
-						<label><input type="radio" name="gender" value="M">남자</label>
-						<label><input type="radio" name="gender" value="F">여자</label>
+						<label><input type="radio" name="gender" value="M" 
+						<%if(gender!= null && gender.equals("M")){out.print("checked='checked'");} %>>남자</label>
+						
+						<%-- <label><input type="radio" name="gender" value="F" 
+						<%if(gender!= null && gender.equals("F")){out.print("checked");} %>>여자</label> --%>
+						
+						<%-- <label><input type="radio" name="gender" value="F" 
+						<%=gender!=null && gender.equals("F")?"checked":""%>>여자</label> --%>
+						
+						<!-- jsp 파일 -> 서블릿(=java파일)으로 변경 -> class로 -->
+						<label><input type="radio" name="gender" value="F" 
+						<%out.print(gender!=null && gender.equals("F")?"checked":"");%>>여자</label>
 					</td>
 				</tr>
 				<tr>
