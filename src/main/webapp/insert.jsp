@@ -10,8 +10,8 @@
 <script type="text/javascript">
 	//유효성 검사 - 값이 비었는지
 	function check() { //function = 함수 = 메서드
-		/* 방법 2, type = "submit"인 경우*/
-		if(!f.memno.value){//JavaScript "" '' 둘다 문자열 취급
+		/* 방법 2, type = "submit", type = "button"인 경우*/
+		/* if(!f.memno.value){//JavaScript "" '' 둘다 문자열 취급
 			alert("회원번호를 입력해주세요");//알림창
 			f.memno.focus();
 			return false;//false로 주면 데이터 전송이 안됨
@@ -50,8 +50,43 @@
 			f.submit();
 			//return true;//type = "submit" 또는 "reset"인 경우 true값을 리턴하면 데이터 전송됨
 			//즉, 리턴값을 false로 주면 데이터 전송이 안되고 true를 줘야 전송됨
+		} */
+	
+	
+		/* 방법 2, type = "submit", type = "button"인 경우*/
+		if(!f.memno.value){//JavaScript "" '' 둘다 문자열 취급
+			alert("회원번호를 입력해주세요");//알림창
+			return f.memno.focus();//false로 주면 데이터 전송이 안됨
 		}
-	}
+		if(f.name.value == ""){//JavaScript "" '' 둘다 문자열 취급
+			alert("회원이름을 입력해주세요");//알림창
+			return f.name.focus();//false로 주면 데이터 전송이 안됨
+		}
+		if(f.address.value == ""){//JavaScript "" '' 둘다 문자열 취급
+			alert("주소를 입력해주세요");//알림창
+			return f.address.focus();//false로 주면 데이터 전송이 안됨
+		}
+		if(f.gender[0].checked == false && f.gender[1].checked){//JavaScript "" '' 둘다 문자열 취급
+			alert("성별을 입력해주세요");//알림창
+			//f.gender.focus();
+			return false;//false로 주면 데이터 전송이 안됨
+		}
+		if(f.tel1.value == ""){
+			alert("전화번호를 입력해주세요");
+			return f.tel1.focus();
+		}
+		if(f.tel2.value == ""){
+			alert("전화번호를 입력해주세요");
+			return f.tel2.focus();//false로 주면 데이터 전송이 안됨
+		}
+		if(f.tel3.value == ""){
+			alert("전화번호를 입력해주세요");
+			return f.tel3.focus();
+		}
+		f.submit();
+		//return true;//type = "submit" 또는 "reset"인 경우 true값을 리턴하면 데이터 전송됨
+		//즉, 리턴값을 false로 주면 데이터 전송이 안되고 true를 줘야 전송됨
+	}//check()끝
 </script>
 
 <body>
@@ -166,24 +201,27 @@
 						이때, return값을 false로 주면 전송이 안되고 true를 줘야 전송됨 --> 
 						
 						<!-- 1 차이점 : 유효성 체크없이 바로 전송함 -->
-						<input type="submit" value="회원등록">
+						<input type="submit" value="1.회원등록">
 						<!-- 2 차이점 : 유효성체크는 하되, 유효성 결과와 상관없이 전송 함 -->
-						<input type="submit" value="회원등록" onclick="check();">
+						<input type="submit" value="2.회원등록" onclick="check();">
 						<!-- 3 유효성 체크는 하되, 마지막에 리턴 폴스를 주어서 전송 못 하게 막음, JSP에서 별도로 전송을 행함-->
-						<input type="submit" value="회원등록" onclick="check(); return false;">
+						<input type="submit" value="3.회원등록" onclick="check(); return false;">
 						
 						<!-- 1 차이점 : 유효성 체크도 없고, 전송도 안됨 
 							-->
-						<input type="button" value="회원등록">
+						<input type="button" value="4.회원등록">
 						<!-- 2 차이점 : 유효성체크는 하되, 전송 기능은 없음
 							고로 전송을 위해서는 반드시 자바스크립트의 함수를 이용해야함
 							(예)check(){f.submit()} -->
-						<input type="button" value="회원등록" onclick="check();">
+						<input type="button" value="5.회원등록" onclick="check();">
 						<!-- 3 -->
-						<input type="button" value="회원등록" onclick="check(); return false;">
+						<input type="button" value="6.회원등록" onclick="check(); return false;">
 						
-						<button type="submit">회원등록</button>
+						<button>7.회원등록</button>
 						<!-- 기본 타입 submit -->
+						
+						<input type="reset" value="1.초기화">
+						<button type="reset">2.초기화</button>
 						
 						<!-- submit 타입에서는 f.submit() 같이 하지 않아도 됨 -->
 						<input type="button" value="조회" onclick="location.href=">
@@ -200,6 +238,18 @@
 <!-- 
 	button 태그 : HTML4.0 표준부터 지원
 	button과 input의 차이점
+	
+	1. button, 기본 : type = "submit"
+	2. button type = "button"
+	3. button type = "reset"
+	
+	<button>과 <input>의 차이점
+	1.<input type = "reset" value = "1-초기화">
+	
+	2.<button type = "reset">
+		<img src = "button.png"/> 
+		<span>자식 태그<span>
+	  </button>
  -->
  
  
