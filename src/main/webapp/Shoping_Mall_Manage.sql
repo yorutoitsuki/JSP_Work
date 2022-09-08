@@ -71,10 +71,11 @@ from buy;
 --구입 총액 확인 완료
 select memno , sum(money) as hap
 from (select memno, (price*bno) as money
-from buy
+		from buy
 )
 group by memno
 order by memno;
+--이중 PK에서 자유로워 짐
 --join 시작, 우선은 이름
 select memno, name, to_char(hap, 'fm999,999,999,999')
 from member join 
