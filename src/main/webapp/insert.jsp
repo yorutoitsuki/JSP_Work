@@ -175,8 +175,8 @@
 				<tr>
 					<th>성별</th>
 					<td>
-						<label><input type="radio" name="gender" value="M"size="10" maxlength="">남자</label>
-						<label><input type="radio" name="gender" value="F" size="10" maxlength="">여자</label>
+						<label><input type="radio" name="gender" value="M">남자</label>
+						<label><input type="radio" name="gender" value="F">여자</label>
 					</td>
 				</tr>
 				<tr>
