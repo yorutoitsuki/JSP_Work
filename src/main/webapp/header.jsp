@@ -18,7 +18,7 @@
 	<nav>
 		<a href="insert.jsp">회원등록</a>
 		<a href="selectMember.jsp">회원조회/수정</a>
-		<a href="select2.jsp">매출조회</a>
+		<a href="selectBuy.jsp">매출조회</a>
 		<a href="index.jsp">홈으로</a>
 	</nav>
 </body>

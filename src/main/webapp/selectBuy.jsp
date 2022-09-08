@@ -11,37 +11,48 @@
 	<%@ include file="header.jsp" %> 
 	<section>
 		<div>
-			<h2>회원조회</h2>
+			<h2>매출조회</h2>
 			<table width = 90%>
 				<tr>
+					<th>등급</th>
 					<th>회원번호</th>
 					<th>이름</th>
-					<th>주소</th>
-					<th>가입일</th>
-					<th>성별</th>
-					<th>전화번호</th>
+					<th>구입액</th>
 				</tr>
 				<%
-				sql = "select memno, name, address, ";
-				sql += " to_char(hiredate,'yyyy.mm.dd.'), ";
-				sql += " decode(gender,'M','남','F','여','불명'), ";
-				sql += " tel1||'-'||tel2||'-'||tel3 ";
-				sql += " from MEMBER";
+				sql  = "select memgrade, memno, name, to_char(hap, 'fm999,999,999,999') as hap ";
+				sql += "from grade, (select memno, name, hap ";
+				sql += "from member join   ";
+				sql += "(select memno , sum(money) as hap ";
+				sql += "from (select memno, (price*bno) as money from buy) ";
+				sql += "group by memno) ";
+				sql += "using(memno)) ";
+				sql += "where loprice<= hap and hap <= hiprice ";
+				sql += "order by memgrade";
 				rs = stmt.executeQuery(sql);
 				while(rs.next()){
+					String grade = "";
+					switch(rs.getString(1)){
+					case"1":
+						grade = "VIP";
+						break;
+					case"2":
+						grade = "Gold";
+						break;
+					case"3":
+						grade = "Silver";
+						break;
+					case"4":
+						grade = "Normal";
+						break;
+					}
 				%>
 				<tr align="center">
-					<td>
-						<!-- 링크를 사용한 Get 방식으로 요청 시 : "요청 URL?파라미터이름1 = 파라미터 값1 & 파라미터이름2 = 파라미터 값2 & ... -->
-						<a href = "update.jsp?memno=<%=rs.getString(1) %>"><%=rs.getString(1) %></a>
-						<%-- <a href = "update.jsp?memno=<%=rs.getString(1) %>&name = <%=rs.getString(2)%>"><%=rs.getString(1) %></a> --%>
-					</td>
 					<%-- <td><%=rs.getString(1)%></td> --%>
-					<td><%=rs.getString(2)%></td>
-					<td><%=rs.getString(3)%></td>
-					<td><%=rs.getString(4)%></td>
-					<td><%=rs.getString(5)%></td>
-					<td><%=rs.getString(6).equals("--")?"":rs.getString(6)%></td>
+					<td><%=grade%></td>
+					<td><%=rs.getString("memno")%></td>
+					<td><%=rs.getString("name")%></td>
+					<td><%=rs.getString("hap")%></td>
 				</tr>
 				<% 
 				}

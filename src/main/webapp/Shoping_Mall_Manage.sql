@@ -21,6 +21,8 @@ gender,
 tel1, tel2, tel3
 from MEMBER;
 
+
+
 create table member(
 memno char(4) primary key,
 name varchar2(30) not null,
@@ -60,6 +62,53 @@ insert into grade values(1, 150001, 500000); --vip
 insert into grade values(2, 100001, 150000); --gold
 insert into grade values(3, 50001, 100000); --silver
 insert into grade values(4, 1, 50000); --normal
+
+--구입액 조회
+select * from buy;
+
+select memno, (price*bno) as money
+from buy;
+--구입 총액 확인 완료
+select memno , sum(money) as hap
+from (select memno, (price*bno) as money
+from buy
+)
+group by memno
+order by memno;
+--join 시작, 우선은 이름
+select memno, name, to_char(hap, 'fm999,999,999,999')
+from member join 
+	(select memno , sum(money) as hap
+	from (	select memno, (price*bno) as money
+			from buy
+			)
+	group by memno)
+using(memno);
+--번호, 이름, 구입액 조회 완료
+
+--등급 조회
+select memgrade, memno, name, to_char(hap, 'fm999,999,999,999')
+from grade, (select memno, name, hap
+from member join 
+	(select memno , sum(money) as hap
+	from (select memno, (price*bno) as money from buy)
+	group by memno)
+using(memno))
+where loprice<= hap and hap <= hiprice
+order by memgrade;
+
+--sql을 좀 더 짧게 만들어보자
+select memno, name, sum(price*bno) as money
+from buy join MEMBER
+using(memno)
+group by name
+--이중(double) primary key 영향이 아직 남아있어서 불가
+
+
+
+
+
+
 
 create table buy(
 memno char(4) not null,
