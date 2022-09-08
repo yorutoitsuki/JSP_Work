@@ -11,7 +11,7 @@
 	//유효성 검사 - 값이 비었는지
 	function check() { //function = 함수 = 메서드
 		/* 방법 2, type = "submit"인 경우*/
-		if(f.memno.value == ""){//JavaScript "" '' 둘다 문자열 취급
+		if(!f.memno.value){//JavaScript "" '' 둘다 문자열 취급
 			alert("회원번호를 입력해주세요");//알림창
 			f.memno.focus();
 			return false;//false로 주면 데이터 전송이 안됨
@@ -47,8 +47,8 @@
 			return false;
 		}
 		else {
-			//f.submit(); 생략가능
-			return true;//type = "submit" 또는 "reset"인 경우 true값을 리턴하면 데이터 전송됨
+			f.submit();
+			//return true;//type = "submit" 또는 "reset"인 경우 true값을 리턴하면 데이터 전송됨
 			//즉, 리턴값을 false로 주면 데이터 전송이 안되고 true를 줘야 전송됨
 		}
 	}
@@ -90,13 +90,18 @@
 	//String hiredate = rs.getString(1);
 	
 	//sql = "select NVL(max(memno),0)+1 as memno, to_char(sysdate,'yyyy-mm-dd') as hirdate from member";
-	sql = "select NVL(max(memno),0)+1,";
+	/* sql = "select NVL(max(memno),0)+1,";
 	sql += " to_char(sysdate,'yyyy-mm-dd')";
 	sql += " from member";
 	rs = stmt.executeQuery(sql);
-	rs.next();
+	rs.next(); */
 	//String memno = rs.getString(1);
 	//String hiredate = rs.getString(2);
+	
+	sql = "select NVL(max(memno),0)+1, to_char(sysdate,'yyyy-mm-dd') from member";
+	rs = stmt.executeQuery(sql);
+	rs.next();
+	
 	
 	%>
 	
@@ -141,17 +146,45 @@
 				</tr>
 				<tr>
 					<th>전화번호</th>
-					<td><input type="text" name="tel1" value="" size="10"
-						maxlength="">- <input type="text" name="tel2" value=""
-						size="10" maxlength="">- <input type="text" name="tel3"
-						value="" size="10" maxlength=""></td>
+					<td>
+						<input type="text" name="tel1" value="" size="10" maxlength="">- 
+						<input type="text" name="tel2" value="" size="10" maxlength="">- 
+						<input type="text" name="tel3" value="" size="10" maxlength="">
+					</td>
 				</tr>
 				<tr>
 					<td colspan="2" align="center">
+						<!-- submit 과 button 차이점 
+						1. submit은 서버로 바로 전송하는 기능이 있고, action을 찾아감.
+						또한 일반적으로 스크립트를 사용하지 않고 전송함
+						
+						2. button은 전송하는 기능 이 없으므로 자바스크립트의 이용하여 전송
+						이용하는 함수는 submit()
+						-->
+						
 						<!-- 방법2 type = "submit"인 경우 : 회원등록 클릭하면 insertPro.jsp 로 입력하면
-						이때, return값을 false로 주면 전송이 안되고 true를 줘야 전송됨
-						그래서 function check()에서 f.submit();가 없어도 전송됨 --> 
+						이때, return값을 false로 주면 전송이 안되고 true를 줘야 전송됨 --> 
+						
+						<!-- 1 차이점 : 유효성 체크없이 바로 전송함 -->
+						<input type="submit" value="회원등록">
+						<!-- 2 차이점 : 유효성체크는 하되, 유효성 결과와 상관없이 전송 함 -->
 						<input type="submit" value="회원등록" onclick="check();">
+						<!-- 3 유효성 체크는 하되, 마지막에 리턴 폴스를 주어서 전송 못 하게 막음, JSP에서 별도로 전송을 행함-->
+						<input type="submit" value="회원등록" onclick="check(); return false;">
+						
+						<!-- 1 차이점 : 유효성 체크도 없고, 전송도 안됨 
+							-->
+						<input type="button" value="회원등록">
+						<!-- 2 차이점 : 유효성체크는 하되, 전송 기능은 없음
+							고로 전송을 위해서는 반드시 자바스크립트의 함수를 이용해야함
+							(예)check(){f.submit()} -->
+						<input type="button" value="회원등록" onclick="check();">
+						<!-- 3 -->
+						<input type="button" value="회원등록" onclick="check(); return false;">
+						
+						<button type="submit">회원등록</button>
+						<!-- 기본 타입 submit -->
+						
 						<!-- submit 타입에서는 f.submit() 같이 하지 않아도 됨 -->
 						<input type="button" value="조회" onclick="location.href=">
 					</td>
@@ -163,3 +196,32 @@
 	<!-- dbcon.jsp(DB 연결 해제) -->
 </body>
 </html>
+
+<!-- 
+	button 태그 : HTML4.0 표준부터 지원
+	button과 input의 차이점
+ -->
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 

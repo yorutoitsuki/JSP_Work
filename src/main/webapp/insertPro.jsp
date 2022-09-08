@@ -8,7 +8,7 @@
 <%
 	try{
 		/*구문 객체 2 PreparedStatement 사용 : SQL문에서 LIKE 키워드를 사용할 경우 사용불가*/
-		sql = "insert into member values(?,?,?,?,?,?,?,?,?)";
+		sql = "insert into member values(?,?,?,?,?,?,?,?)";
 		
 		ps = con.prepareStatement(sql);
 		
