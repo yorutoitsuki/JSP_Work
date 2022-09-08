@@ -49,6 +49,7 @@
 		var x = confirm("다시 작성 하시겠습니까?");
 		if(x == true) {
 			f.reset();
+			f.name.select();
 		}
 		//f.name.focus();
 		
