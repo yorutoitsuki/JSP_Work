@@ -200,6 +200,10 @@
 						<!-- 방법2 type = "submit"인 경우 : 회원등록 클릭하면 insertPro.jsp 로 입력하면
 						이때, return값을 false로 주면 전송이 안되고 true를 줘야 전송됨 --> 
 						
+						<!-- 통합 -->
+					<!--<input type="submit" value="3.회원등록" onclick="check(); return false;">
+						<input type="button" value="6.회원등록" onclick="check(); return false;"> -->
+						
 						<!-- 1 차이점 : 유효성 체크없이 바로 전송함 -->
 						<input type="submit" value="1.회원등록">
 						<!-- 2 차이점 : 유효성체크는 하되, 유효성 결과와 상관없이 전송 함 -->
