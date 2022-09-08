@@ -67,6 +67,11 @@ table, tr, td, th {
     height: 20px;
 }
 
+a{
+	text-decoration: none;
+	color: yellow;
+}
+
 
 
 

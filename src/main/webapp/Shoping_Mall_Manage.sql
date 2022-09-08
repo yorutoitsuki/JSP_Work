@@ -7,10 +7,18 @@ select to_char(sysdate,'yyyy-mm-dd') as hirdate from member; -- 레코드 수가
 
 drop table member;
 
+--selectMamber.jsp
 select memno, name, address,
 to_char(hiredate,'yyyy.mm.dd.'),
 decode(gender,'M','남','F','여','불명'),
 tel1||'-'||tel2||'-'||tel3
+from MEMBER;
+
+--update.jsp
+select memno, name, address,
+to_char(hiredate,'yyyy-mm-dd'),
+gender,
+tel1, tel2, tel3
 from MEMBER;
 
 create table member(

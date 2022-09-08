@@ -32,8 +32,9 @@
 				%>
 				<tr align="center">
 					<td>
-						<!-- 링크를 사용한 Get 방식으로 요청 시 : "요청 URL?파라미터이름 = 파라미터 값 -->
+						<!-- 링크를 사용한 Get 방식으로 요청 시 : "요청 URL?파라미터이름1 = 파라미터 값1 & 파라미터이름2 = 파라미터 값2 & ... -->
 						<a href = "update.jsp?memno=<%=rs.getString(1) %>"><%=rs.getString(1) %></a>
+						<%-- <a href = "update.jsp?memno=<%=rs.getString(1) %>&name = <%=rs.getString(2)%>"><%=rs.getString(1) %></a> --%>
 					</td>
 					<%-- <td><%=rs.getString(1)%></td> --%>
 					<td><%=rs.getString(2)%></td>

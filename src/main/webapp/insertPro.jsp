@@ -7,7 +7,28 @@
 
 <%
 	try{
-		/*구문 객체 2 PreparedStatement 사용 : SQL문에서 LIKE 키워드를 사용할 경우 사용불가*/
+		/*구문 객체 2 Statement 사용 : SQL문에서 ? 사용불가*/
+		/* String memno = request.getParameter("memno");
+		String name = request.getParameter("name");
+		String address = request.getParameter("address");
+		String hiredate = request.getParameter("hiredate");
+		String gender = request.getParameter("gender");
+		String tel1 = request.getParameter("tel1");
+		String tel2 = request.getParameter("tel2");
+		String tel3 = request.getParameter("tel3");
+		
+		ps.setString(1, memno);
+		ps.setString(2, name);
+		ps.setString(3, address);
+		ps.setString(4, hiredate);
+		ps.setString(5, gender);
+		ps.setString(6, tel1);
+		ps.setString(7, tel2);
+		ps.setString(8, tel3);
+		
+		sql = "insert into member values(?,?,?,?,?,?,?,?)"; */
+		
+		/*구문 객체 2 PreparedStatement 사용*/
 		sql = "insert into member values(?,?,?,?,?,?,?,?)";
 		
 		ps = con.prepareStatement(sql);
