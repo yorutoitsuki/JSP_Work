@@ -21,7 +21,7 @@ gender,
 tel1, tel2, tel3
 from MEMBER;
 
-
+select * from member;
 
 create table member(
 memno char(4) primary key,
@@ -88,7 +88,7 @@ using(memno);
 --번호, 이름, 구입액 조회 완료
 
 --등급 조회
-select memgrade, memno, name, to_char(hap, 'fm999,999,999,999')
+select memgrade, memno, name, hap
 from grade, (select memno, name, hap
 from member join 
 	(select memno , sum(money) as hap
@@ -96,7 +96,7 @@ from member join
 	group by memno)
 using(memno))
 where loprice<= hap and hap <= hiprice
-order by memgrade;
+order by hap desc;
 
 --sql을 좀 더 짧게 만들어보자
 select memno, name, sum(price*bno) as money
@@ -104,9 +104,33 @@ from buy join MEMBER
 using(memno)
 group by name
 --이중(double) primary key 영향이 아직 남아있어서 불가
+--아래처럼 두 속성 전부로 group by로 해야함
 
-
-
+------------------------------------------------------------
+select memgrade, memno, name, to_char(totalprice,'L999,999,999')
+from grade join (select memno, name, sum(price*bno) as totalprice
+				 from member natural join buy
+				 group by memno, name)
+on (loprice <= totalprice and totalprice <= hiprice)
+order by totalprice desc;
+--------------------------------------------------------
+select DECODE(memgrade, 1, 'VIP', 2, 'Gold', 3, 'Silver', 4, 'Normal') as memgrade, memno, name, to_char(totalprice,'L999,999,999')
+from grade join (select memno, name, sum(price*bno) as totalprice
+				 from member natural join buy
+				 group by memno, name)
+on (loprice <= totalprice and totalprice <= hiprice)
+order by totalprice desc;
+---------------case ~ end 사용
+select case when memgrade = 1 then 'VIP'
+			when memgrade = 2 then 'Gold' 
+			when memgrade = 3 then 'Silver'
+			when memgrade = 4 then 'Normal'
+			end as memgrade, memno, name, to_char(totalprice,'FML999,999,999')--왼쪽 공백 제거(FM) + 지역화폐단위(L) + 전단위 구분 쉼표
+from grade join (select memno, name, sum(price*bno) as totalprice
+				 from member natural join buy
+				 group by memno, name)
+on (loprice <= totalprice and totalprice <= hiprice)
+order by totalprice desc;
 
 
 

@@ -1,3 +1,4 @@
+<%@page import="java.text.DecimalFormat"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -20,7 +21,8 @@
 					<th>구입액</th>
 				</tr>
 				<%
-				sql  = "select memgrade, memno, name, to_char(hap, 'fm999,999,999,999') as hap ";
+				sql  = "select memgrade, memno, name, hap ";
+				//DECODE(memgrade, 1, 'VIP', 2, 'Gold', 3, 'Silver', 4, 'Normal') as memgrade
 				sql += "from grade, (select memno, name, hap ";
 				sql += "from member join   ";
 				sql += "(select memno , sum(money) as hap ";
@@ -28,7 +30,7 @@
 				sql += "group by memno) ";
 				sql += "using(memno)) ";
 				sql += "where loprice<= hap and hap <= hiprice ";
-				sql += "order by memgrade";
+				sql += "order by hap desc";
 				rs = stmt.executeQuery(sql);
 				while(rs.next()){
 					String grade = "";
@@ -46,13 +48,17 @@
 						grade = "Normal";
 						break;
 					}
+					
+					DecimalFormat df = new DecimalFormat("###,###");
+					String hapComma = df.format(rs.getDouble("hap"));
+					
 				%>
 				<tr align="center">
 					<%-- <td><%=rs.getString(1)%></td> --%>
 					<td><%=grade%></td>
 					<td><%=rs.getString("memno")%></td>
 					<td><%=rs.getString("name")%></td>
-					<td><%=rs.getString("hap")%></td>
+					<td><%=hapComma%></td>
 				</tr>
 				<% 
 				}

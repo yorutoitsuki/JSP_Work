@@ -20,6 +20,7 @@
 					<th>가입일</th>
 					<th>성별</th>
 					<th>전화번호</th>
+					<th>삭제</th>
 				</tr>
 				<%
 				sql = "select memno, name, address, ";
@@ -42,6 +43,7 @@
 					<td><%=rs.getString(4)%></td>
 					<td><%=rs.getString(5)%></td>
 					<td><%=rs.getString(6).equals("--")?"":rs.getString(6)%></td>
+					<td><a href="deletePro.jsp?memno = <%=rs.getString(1)%>"><img src = "./images/delete.jpg" width="30" height="30" alt = "삭제"></a></td>
 				</tr>
 				<% 
 				}
